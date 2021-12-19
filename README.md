@@ -3,8 +3,14 @@
 
 ## 1. 复现说明
 
-### 1.1 下载并解压数据集
+### 1.1 安装依赖库
+```bash
+!pip install paddlepaddle-gpu
+!pip install paddleseg opencv-python visualdl
+```
+在安装飞桨过程中遇到任何问题可以参考![https://www.paddlepaddle.org.cn/](https://www.paddlepaddle.org.cn/)
 
+### 1.2 下载并解压数据集
 ```bash
 # 下载比赛数据，报名比赛后在比赛页面可查看下载地址
 !wget https://xxxxxxxxxxxxxxx/task2_Fovea_localization.zip
@@ -12,13 +18,13 @@
 !unzip task2_Fovea_localization.zip -d competition_data
 ```
 
-### 1.2 训练
+### 1.3 训练
 **注意**：会覆盖之前训练好的checkpoint
 ```bash
 !cd ~/work && python -W ignore train.py
 ```
 
-### 1.3 预测
+### 1.4 预测
 
 ```bash
 !cd ~/work && python -W ignore predict.py
