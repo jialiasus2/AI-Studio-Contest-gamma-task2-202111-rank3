@@ -1,32 +1,55 @@
-# Python代码仓库模板
+# 飞桨常规赛：黄斑中央凹定位（GAMMA挑战赛任务二） - 11月第3名方案
+鸣沙山下.伽利略<br>
 
-![GitHub forks](https://img.shields.io/github/forks/GT-ZhangAcer/PythonRepository-Template?style=for-the-badge) ![GitHub Repo stars](https://img.shields.io/github/stars/GT-ZhangAcer/PythonRepository-Template?style=for-the-badge) 
+## 1. 复现说明
 
-这是一个简单的迁移模板，使用者只需在[模板仓库](https://github.com/GT-ZhangAcer/PythonRepository-Template)中点击[use this template](https://github.com/GT-ZhangAcer/PythonRepository-Template/generate)即可创建属于自己的具备前端页面空白Paddle项目。
+### 1.1 下载并解压数据集
 
-
-## 项目结构
-
-### Main分支（Default）
-该分支为主要的开发分支，与项目有关的说明和代码文件可放置于此，在仓库被访问时默认展示该分支。
+```bash
+# 下载比赛数据，报名比赛后在比赛页面可查看下载地址
+!wget https://xxxxxxxxxxxxxxx/task2_Fovea_localization.zip
+# 解压至competition_data文件夹
+!unzip task2_Fovea_localization.zip -d competition_data
 ```
--|
---LICENSE   开源协议文件，默认为MIT开源协议。
---README.md 项目说明文件，可使用Markdowm编辑器进行编辑。
---requirements.txt Python项目依赖列表
-```  
-### gh-pages分支
-该分支下默认会给出静态页面文件，在使用该模板后将自动生成一个项目介绍网页`https://GitHub昵称.github.io/项目名`，我们只需对该分支下的`index.md`文件进行修改即可操控这个页面。
 
-## 使用方法
+### 1.2 训练
+**注意**：会覆盖之前训练好的checkpoint
+```bash
+!cd ~/work && python -W ignore train.py
+```
 
-### Step1 使用模板仓库创建一个新的个人仓库
-进入[模板仓库]()主页，获取最新模板或点击[此处](https://github.com/GT-ZhangAcer/PythonRepository-Template/generate)立即创建一个这样的特殊仓库。
-<img src="https://ai-studio-static-online.cdn.bcebos.com/77a8ffd9cd9b4953a39f609bb2b0a4903bc046f354944d5d9ee776676f580095" width="800px">  
-简单填写仓库信息  
-<img src="https://ai-studio-static-online.cdn.bcebos.com/e42d4a7b3a064e788b0761570b19b27e18f19a9eeba44c21abf22d7270e38fda" width="800px">
+### 1.3 预测
 
-### Step2 上传项目文件至个人仓库
-<img src="https://ai-studio-static-online.cdn.bcebos.com/81ed71bc5ab74d01ab3ed244b987a08b7f3664baecf4475f8c337a2cbfcb04e5" width="800px">  
-<img src="https://ai-studio-static-online.cdn.bcebos.com/069da53af0ca4cbe8f2de962d2cd3e2d6dbbba9e44d9411bb0bd8dda8a7c1b52" width="800px"> 
+```bash
+!cd ~/work && python -W ignore predict.py
+```
+
+## 2. 代码说明
+### 2.1 建模思路
+题目要求检测黄斑中央凹点，参考baseline将其建模为回归问题。<br>
+backbone选用飞桨自带的Resnet50，输出为归一化的xy坐标值。<br>
+
+### 2.2 代码结构
+| 代码 | 功能 |
+|-|-|
+| config.py | 参数设置 |
+| utils.py | 功能函数 |
+| my_dataset.py | 数据集 |
+| my_model.py | 模型 |
+| train.py | 训练主程序 |
+| predict.py | 预测主程序 |
+
+### 2.3 一些细节
+1. 全图取中使宽高一致，再缩放为512*512
+2. 训练数据增强选用了颜色抖动和随机翻转
+3. 学习率采用warmup和线形递减，基准学习率为1e-3
+4. 优化器采用Momentum
+5. 后处理时在局部邻域取灰度最低点作为最终结果
+
+## 3. 不足与改进
+其实原本想借鉴YOLO的思路，把题目建模为“分块回归”问题，即把黄斑中央凹可能存在的区域划分为若干网格，首先通过分类确定中央凹点在哪个网格内，再通过回归确定最终位置，如图所示：<br>
+![](https://ai-studio-static-online.cdn.bcebos.com/a62e08d64f0c445cb03784d372737cfe4984162efcaa49c5b20df403468a6050)<br>
+但实现以后发现效果不如直接回归的，大概是参数调的不够好吧。<br>
+另外，后处理假设黄斑中央凹点为局部邻域灰度最低点，这个假设也有点小问题，想要进一步提高分数可能要放弃该假设。
+
 
