@@ -1,6 +1,6 @@
 # 飞桨常规赛：黄斑中央凹定位（GAMMA挑战赛任务二） - 11月第3名方案
 鸣沙山下.伽利略<br>
-比赛地址：![https://aistudio.baidu.com/aistudio/competition/detail/120/0/introduction](https://aistudio.baidu.com/aistudio/competition/detail/120/0/introduction)
+比赛地址：[https://aistudio.baidu.com/aistudio/competition/detail/120/0/introduction](https://aistudio.baidu.com/aistudio/competition/detail/120/0/introduction)
 
 ## 1. 复现说明
 
@@ -9,7 +9,7 @@
 !pip install paddlepaddle-gpu
 !pip install paddleseg opencv-python visualdl
 ```
-在安装飞桨过程中遇到任何问题可以参考![https://www.paddlepaddle.org.cn/](https://www.paddlepaddle.org.cn/)
+在安装飞桨过程中遇到任何问题可以参考[https://www.paddlepaddle.org.cn/](https://www.paddlepaddle.org.cn/)
 
 ### 1.2 下载并解压数据集
 ```bash
