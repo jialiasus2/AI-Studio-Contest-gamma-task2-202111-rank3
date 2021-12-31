@@ -1,6 +1,7 @@
 # 飞桨常规赛：黄斑中央凹定位（GAMMA挑战赛任务二） - 11月第3名方案
 鸣沙山下.伽利略<br>
-比赛地址：[https://aistudio.baidu.com/aistudio/competition/detail/120/0/introduction](https://aistudio.baidu.com/aistudio/competition/detail/120/0/introduction)
+比赛地址：[https://aistudio.baidu.com/aistudio/competition/detail/120/0/introduction](https://aistudio.baidu.com/aistudio/competition/detail/120/0/introduction)<br>
+[点击这里并folk以一键运行本程序](https://aistudio.baidu.com/aistudio/projectdetail/3264069)
 
 ## 1. 赛题分析
 GAMMA挑战赛是由百度在MICCAI2021研讨会OMIA8上举办的国际眼科赛事。MICCAI是由国际医学图像计算和计算机辅助干预协会 (Medical Image Computing and Computer Assisted Intervention Society) 举办的跨医学影像计算和计算机辅助介入两个领域的综合性学术会议，是该领域的顶级会议。OMIA是百度在MICCAI会议上组织的眼科医学影像分析 (Ophthalmic Medical Image Analysis) 研讨会，至今已举办八届。<br>
